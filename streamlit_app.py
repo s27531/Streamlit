@@ -68,12 +68,3 @@ elif option == "Tłumaczenie ENG -> DE":
 # Stopka
 st.markdown("---")
 st.info("Autor: s27531")
-
-st.subheader('Zadanie do wykonania')
-st.write('Wykorzystaj Huggin Face do stworzenia swojej własnej aplikacji tłumaczącej tekst z języka angielskiego na język niemiecki. Zmodyfikuj powyższy kod dodając do niego kolejną opcję, tj. tłumaczenie tekstu. Informacje potrzebne do zmodyfikowania kodu znajdziesz na stronie Huggin Face - https://huggingface.co/docs/transformers/index')
-st.write('🐞 Dodaj właściwy tytuł do swojej aplikacji, może jakieś grafiki?')
-st.write('🐞 Dodaj krótką instrukcję i napisz do czego służy aplikacja')
-st.write('🐞 Wpłyń na user experience, dodaj informacje o ładowaniu, sukcesie, błędzie, itd.')
-st.write('🐞 Na końcu umieść swój numer indeksu')
-st.write('🐞 Stwórz nowe repozytorium na GitHub, dodaj do niego swoją aplikację, plik z wymaganiami (requirements.txt)')
-st.write('🐞 Udostępnij stworzoną przez siebie aplikację (https://share.streamlit.io) a link prześlij do prowadzącego')
