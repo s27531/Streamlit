@@ -33,34 +33,49 @@ option = st.selectbox(
     ],
 )
 
-# Analiza tekstu
-if option == "Wydźwięk emocjonalny tekstu (ENG)":
-    text = st.text_area(label="Wpisz tekst po angielsku")
-    if text:
-        with st.spinner("Trwa analiza tekstu"):
+# Formularz
+with st.form(key="my_form"):
+    text = st.text_area("Wpisz tekst po angielsku", height=150)
+    submit_button = st.form_submit_button(label="Wykonaj")
+
+if submit_button and text:
+    # Analiza tekstu
+    if option == "Wydźwięk emocjonalny tekstu (ENG)":
+        with st.spinner("Trwa analiza tekstu..."):
             try:
                 classifier = pipeline("sentiment-analysis")
-                answer = classifier(text)
+                answer = classifier(text)[0]
+                label = answer["label"]
+                score = answer["score"]
 
                 st.success("Analiza zakończona suckesem!")
-                st.write(answer)
+                st.metric(label="Sentyment", value=label, delta=f"{score:.1%} pewności")
+                st.progress(float(score))
+
+                st.subheader("Dokładny wynik:")
+                st.code(answer, language="json")
             except Exception as e:
                 st.error(f"Wystąpił błąd podczas analizy tekstu... Błąd: {e}")
 
-# Tłumaczenie tekstu
-elif option == "Tłumaczenie ENG -> DE":
-    text = st.text_area("Wpisz tekst po angielsku")
-
-    if text:
+    # Tłumaczenie tekstu
+    elif option == "Tłumaczenie ENG -> DE":
         with st.spinner("Tłumaczę tekst..."):
             try:
                 translator = pipeline("translation", model="Helsinki-NLP/opus-mt-en-de")
                 result = translator(text)
+                translation = result[0].get("translation_text")
 
-                st.success("Tłumaczenie tekstu zakończone!")
-                st.write("Tłumaczenie:")
-                st.write(result)
+                st.success("Tłumaczenie zakończone!")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.subheader("Angielski")
+                    st.info(text)
+                with col2:
+                    st.subheader("Niemiecki")
+                    st.success(translation)
 
+                st.subheader("Dokładny wynik:")
+                st.code(result, language="json")
             except Exception as e:
                 st.error(f"Wystąpił błąd podczas tłumaczenia tekstu... Błąd: {e}")
 
