@@ -59,7 +59,7 @@ elif option == "Tłumaczenie ENG -> DE":
 
                 st.success("Tłumaczenie tekstu zakończone!")
                 st.write("Tłumaczenie:")
-                st.write(result[0]["generated_text"])
+                st.write(result)
 
             except Exception as e:
                 st.error(f"Wystąpił błąd podczas tłumaczenia tekstu... Błąd: {e}")
